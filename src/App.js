@@ -4,7 +4,7 @@ import RepositoryList from './RepositoryList'
 import Details from './Details'
 import './app.css'
 import axios from 'axios'
-import { Link, BrowserRouter as Router , Route} from 'react-router-dom';
+import { BrowserRouter as Router , Route} from 'react-router-dom';
 
 class App extends Component {
 
@@ -14,7 +14,6 @@ class App extends Component {
     searching: false,
     repositories:{},
     filteredRepos:[],
-    repoDetails: [],
     showDetails: false,
     stars:0,
     forks:0,
@@ -30,11 +29,10 @@ class App extends Component {
       newstate.searching= false;
       newstate.repositories={};
       newstate.filteredRepos=[];
-      newstate.repoDetails=[],
-      newstate.showDetails=false,
-      newstate.stars=0,
-      newstate.forks=0,
-      newstate.priLang=0
+      newstate.showDetails=false;
+      newstate.stars=0;
+      newstate.forks=0;
+      newstate.priLang=0;
       return newstate
     })
   }
@@ -114,7 +112,7 @@ class App extends Component {
   }
 
   render() {
-    let repoList, repoDetailsDisp, searchDisp
+    let repoList, repoDetailsDisp
     if(this.state.showDetails===false){
       repoDetailsDisp=(<div></div>)
     }else{
@@ -127,17 +125,6 @@ class App extends Component {
         repoList=<RepositoryList  state={this.state} filter={this.filter} showDetails={this.showDetails} />
       }
 
-      if(this.state.showDetails===false){
-        searchDisp=(<div>
-          <h1>Github viewer</h1>
-        <hr />
-        <SearchForm state={this.state} updateUN={this.updateUN} fetchRepos={this.fetchRepos}  />
-        {repoList}</div>
-        )
-        
-      }else{
-        searchDisp=<div></div>
-      }
 
 
     return (

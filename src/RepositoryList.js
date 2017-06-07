@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './repository_list.css'
 import PropTypes from 'prop-types'
-import { Link, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class RepositoryList extends Component{
      filter=(e)=>{
@@ -28,22 +28,25 @@ class RepositoryList extends Component{
     let repoList = []
     if(this.props.state.filteredRepos.length !== 0){
         this.props.state.filteredRepos.forEach((val, id)=>{
-        repoList.push(<Link to={`/repos/${val.name}`}><p id={val.name} onClick={this.showDetails} >{val.name}</p></Link>)
+        repoList.push(<Link key={val.id} to={`/repos/${val.name}`}><p id={val.name} onClick={this.showDetails} >{val.name}</p></Link>)
     })
     }
     
     let languages=[]
-    this.props.state.filteredRepos.forEach(({language})=>{
+    this.props.state.repositories.forEach(({language})=>{
         languages[language]=language;
     })
    languages.forEach((val,ind)=>{
-        options.push( <option value={Object.keys(val)} selected='true'>{Object.keys(val)}</option>)
+        options.push( <option key={ind} value={Object.keys(val)} selected='true'>{Object.keys(val)}</option>)
    })
 
    let options=Object.keys(languages)
+   //get rid of nulls
+
+
    let optionsDisp=[]
     for(let x=0; x<options.length; x++){
-        optionsDisp.push(<option value={options[x]} >{options[x]}</option>)
+        optionsDisp.push(<option key={x} value={options[x]} >{options[x]}</option>)
     }
 
     return (

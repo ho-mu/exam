@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 import { Link} from 'react-router-dom';
 
-class Details extends Component{
+const Details =(props)=>{
     
-render(){
-
-
 
     return (
       <div className="details">
         <div>
             <h1>Github viewer</h1>
-            <Link to='/'><button  onClick={this.props.reset} className='button info'>Home</button></Link>
+            <Link to='/'><button  onClick={props.reset} className='button info'>Home</button></Link>
             <hr />
         </div>
-        <h1>{this.props.state.username} details</h1>
+        <h1>{props.state.username} details</h1>
         <table className='table sticky' role='grid'>
                 <thead>
                     <tr>
@@ -26,19 +23,19 @@ render(){
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{this.props.state.stars}</td>
-                        <td>{this.props.state.forks}</td>
-                        <td>{this.props.state.priLang}</td>
+                        <td>{props.state.stars}</td>
+                        <td>{props.state.forks}</td>
+                        <td>{props.state.priLang}</td>
                     </tr>
                 </tbody>
             </table>
       </div>
     );
     }
-}
+
 Details.propTypes={
     state: PropTypes.object.isRequired,
-    reset: PropTypes.object.isRequired
+    reset: PropTypes.func.isRequired
 }
 
 export default Details;
