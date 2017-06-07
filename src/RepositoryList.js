@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import './repository_list.css'
 import PropTypes from 'prop-types'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import { Link, BrowserRouter as Router } from 'react-router-dom';
 
 class RepositoryList extends Component{
      filter=(e)=>{
@@ -32,14 +28,26 @@ class RepositoryList extends Component{
     let repoList = []
     if(this.props.state.filteredRepos.length !== 0){
         this.props.state.filteredRepos.forEach((val, id)=>{
-        repoList.push(<tr key={val.id} ><td id={val.name} onClick={this.showDetails} >{val.name}</td></tr>)
+        repoList.push(<Link to={`/repos/${val.name}`}><p id={val.name} onClick={this.showDetails} >{val.name}</p></Link>)
     })
     }
     
-   
+    let languages=[]
+    this.props.state.filteredRepos.forEach(({language})=>{
+        languages[language]=language;
+    })
+   languages.forEach((val,ind)=>{
+        options.push( <option value={Object.keys(val)} selected='true'>{Object.keys(val)}</option>)
+   })
+
+   let options=Object.keys(languages)
+   let optionsDisp=[]
+    for(let x=0; x<options.length; x++){
+        optionsDisp.push(<option value={options[x]} >{options[x]}</option>)
+    }
 
     return (
-    
+  
       <div className="repository_list">
         <span style={style} className='loading-indicator small'></span>
         <div>
@@ -49,10 +57,7 @@ class RepositoryList extends Component{
                 <div className='large-4 columns'>
                     <label>Filter repos by primary language</label>
                     <select name="filter" id="filter" onChange={this.filter} >
-                        <option value="All" selected='true'>All</option>
-                        <option value="JavaScript" >JavaScript</option>
-                        <option value="HTML" >HTML</option>
-                        <option value="Ruby" >Ruby</option>
+                        {optionsDisp}
                     </select>
                 </div>
             </div>
@@ -62,14 +67,16 @@ class RepositoryList extends Component{
                     </tr>
                 </thead>
                 <tbody>
-                  
+                  <tr><td>
                         {repoList}
-                   
+                        </td>
+                   </tr>
                 </tbody>
+                
             </table>
         </div>
       </div>
-   
+
     );
     }//end of render 
 }

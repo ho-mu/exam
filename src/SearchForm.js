@@ -26,7 +26,7 @@ class SearchForm extends Component{
                 <div>
                         <label>Search repositories by username</label>
                          <input type="text" placeholder='username' value={this.props.state.username} onChange={this.updateUN} />
-                        <button className='button expand' onClick={this.fetchRepos}>Search</button>
+                        <button disabled={this.props.state.username===''} className='button expand' onClick={this.fetchRepos}>Search</button>
                     </div>)
         }else{
             disp=(<div></div>)

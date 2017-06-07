@@ -4,6 +4,7 @@ import RepositoryList from './RepositoryList'
 import Details from './Details'
 import './app.css'
 import axios from 'axios'
+import { Link, BrowserRouter as Router , Route} from 'react-router-dom';
 
 class App extends Component {
 
@@ -19,6 +20,25 @@ class App extends Component {
     forks:0,
     priLang:''
   }
+
+  reset=()=>{
+    console.log(`inhere`)
+    this.setState((prev)=>{
+      let newstate={ ...prev }
+      newstate.username='';
+      newstate.searchSuccess= null;
+      newstate.searching= false;
+      newstate.repositories={};
+      newstate.filteredRepos=[];
+      newstate.repoDetails=[],
+      newstate.showDetails=false,
+      newstate.stars=0,
+      newstate.forks=0,
+      newstate.priLang=0
+      return newstate
+    })
+  }
+
   showDetails=(name)=>{
     
     this.setState((prev)=>{
@@ -26,6 +46,9 @@ class App extends Component {
       let repo=newstate.filteredRepos.filter((val)=>{
         return (val.name===name)
       })
+      newstate.stars=repo[0].stargazers_count
+      newstate.forks=repo[0].forks_count
+      newstate.priLang=repo[0].language
       newstate.showDetails=true
       return newstate
     })
@@ -95,7 +118,7 @@ class App extends Component {
     if(this.state.showDetails===false){
       repoDetailsDisp=(<div></div>)
     }else{
-      repoDetailsDisp=(<div><Details state={this.state} /></div>)
+      repoDetailsDisp=(<div><Details state={this.state} reset={this.reset}  /></div>)
     }
 
       if(!this.state.searchSuccess){
@@ -118,11 +141,21 @@ class App extends Component {
 
 
     return (
-      <div className="App">
-        
-        {searchDisp}
-        {repoDetailsDisp}
-      </div>
+      <Router>
+        <div className="App">
+      
+        {/*{searchDisp}*/}
+        {/*{repoDetailsDisp}*/}
+         <Route exact path={`/`} render={()=>{return (<div>
+          <h1>Github viewer</h1>
+        <hr />
+        <SearchForm state={this.state} updateUN={this.updateUN} fetchRepos={this.fetchRepos}  />
+        {repoList}</div>)}} />
+         <Route path={`/repos/:login`} render={() => {return repoDetailsDisp}} />
+         
+       
+        </div>
+      </Router>
     );
   }
 }
