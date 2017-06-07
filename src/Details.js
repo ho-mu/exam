@@ -4,6 +4,11 @@ const Details = ()=>{
   
     return (
       <div className="details">
+        <div>
+            <h1>Github viewer</h1>
+            <button className='button info'>Home</button>
+            <hr />
+        </div>
         <h1>hello_dojo details</h1>
         <table className='table sticky' role='grid'>
                 <thead>
