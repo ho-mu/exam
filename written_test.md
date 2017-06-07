@@ -9,7 +9,6 @@ This part of the test is closed book!
 
 const arr = [1,2,3];
 arr.map((val) => val * val) // [1,4,9]
-
 */
 
 ```
@@ -19,13 +18,13 @@ Please write your answer [here](./map.js)
 2. What is a React `component`?
 
 ---
-> Your answer here...
+> A function that allows us to return the UI 
 ---
 
 3. You can define a React component a few different ways, including (1) as a simple function or (2) as a class that extends the `Component` piece of the React library. How should you decide when to use which syntax?
 
 ---
-> Your answer here...
+> If you need to manage 'state', you should extend the 'Component' peice of the React library.
 ---
 
 4. Please transpile the following JSX code into JavaScript that the browser can understand:
@@ -37,7 +36,7 @@ Please write your answer [here](./map.js)
 ```
 
 ---
-> Your answer here...
+> React.createElement('div', <h1 className='headline'>Hello Dojo!</h1>)
 ---
 
 5. Reverse an array. Write a function that accepts an array and returns *the same array* with the values reversed.
@@ -53,7 +52,7 @@ Please write your answer [here](./reverseArr.js)
 6. How does using the `new` keyword affect a function's behavior in JavaScript?
 
 ---
-> Your answer here...
+> The 'new' keyword instantiates (runs constructor) and allows us to use 'this'. Binds function with calling object/function.
 ---
 
 7. What is the best thing?
@@ -63,7 +62,7 @@ Please write your answer [here](./reverseArr.js)
 * D) Pushing to Github
 
 ---
-> Your answer here...
+> I love them all equally. Before the memory game, I would have disincluded promises, but now they share a part of my heart as well.
 ---
 
 Done! Time to start the [React app](./app-details.md)!

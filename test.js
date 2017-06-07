@@ -1,5 +1,3 @@
-
-module.exports = 
 function reverseArr(arr) {
     let temp
     let counter=arr.length-1
@@ -12,6 +10,6 @@ function reverseArr(arr) {
     }
 }
 
-// const arr = [1,2,3];
-// reverseArr(arr);
-// console.log(arr) // [3,2,1];
+const arr = [1,2,3];
+reverseArr(arr);
+console.log(arr) // [3,2,1];
