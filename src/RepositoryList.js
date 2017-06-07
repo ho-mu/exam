@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import './repository_list.css'
 import PropTypes from 'prop-types'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 class RepositoryList extends Component{
      filter=(e)=>{
-        console.log(e.target.value)
         this.props.filter(e.target.value)
     }
+
+    showDetails=(e)=>{
+        this.props.showDetails(e.target.id)
+    }
+
     render(){
     
     let style={}
-    console.log(`inrepolist`)
     if(this.props.state.searching===false){
         style={
             display:'none'
@@ -23,15 +30,16 @@ class RepositoryList extends Component{
     }
 
     let repoList = []
-    if(this.props.state.filteredRepos.length != 0){
+    if(this.props.state.filteredRepos.length !== 0){
         this.props.state.filteredRepos.forEach((val, id)=>{
-        repoList.push(<tr key={id}><td>{val.name}</td></tr>)
+        repoList.push(<tr key={val.id} ><td id={val.name} onClick={this.showDetails} >{val.name}</td></tr>)
     })
     }
     
    
 
     return (
+    
       <div className="repository_list">
         <span style={style} className='loading-indicator small'></span>
         <div>
@@ -42,9 +50,9 @@ class RepositoryList extends Component{
                     <label>Filter repos by primary language</label>
                     <select name="filter" id="filter" onChange={this.filter} >
                         <option value="All" selected='true'>All</option>
-                        <option value="JavaScript" selected='true'>JavaScript</option>
-                        <option value="HTML" selected='true'>HTML</option>
-                        <option value="Ruby" selected='true'>Ruby</option>
+                        <option value="JavaScript" >JavaScript</option>
+                        <option value="HTML" >HTML</option>
+                        <option value="Ruby" >Ruby</option>
                     </select>
                 </div>
             </div>
@@ -54,18 +62,22 @@ class RepositoryList extends Component{
                     </tr>
                 </thead>
                 <tbody>
-                    {repoList}
+                  
+                        {repoList}
+                   
                 </tbody>
             </table>
         </div>
       </div>
+   
     );
     }//end of render 
 }
 
 RepositoryList.propTypes={
     state: PropTypes.object.isRequired,
-    filter: PropTypes.func.isRequired
+    filter: PropTypes.func.isRequired,
+    showDetails: PropTypes.func.isRequired
 }
 
 export default RepositoryList;

@@ -13,7 +13,22 @@ class App extends Component {
     searching: false,
     repositories:{},
     filteredRepos:[],
-    repoDetails: []
+    repoDetails: [],
+    showDetails: false,
+    stars:0,
+    forks:0,
+    priLang:''
+  }
+  showDetails=(name)=>{
+    
+    this.setState((prev)=>{
+      let newstate={ ...prev }
+      let repo=newstate.filteredRepos.filter((val)=>{
+        return (val.name===name)
+      })
+      newstate.showDetails=true
+      return newstate
+    })
   }
 
   filter =(lang)=>{
@@ -27,7 +42,6 @@ class App extends Component {
       this.setState((prev)=>{
       let newstate={ ...prev }
       newstate.filteredRepos = newstate.repositories.filter((val)=>{
-        console.log(`val: `,val)
         return (val.language === lang)
       })
       return newstate
@@ -77,24 +91,37 @@ class App extends Component {
   }
 
   render() {
-    let repoListStyle={}, repositoriesStyle={}, repoList
-    if (this.state.repoDetails.length===0){
-        repoListStyle={display:'none'}
-      }else{repoListStyle={display:'true'}}
+    let repoList, repoDetailsDisp, searchDisp
+    if(this.state.showDetails===false){
+      repoDetailsDisp=(<div></div>)
+    }else{
+      repoDetailsDisp=(<div><Details state={this.state} /></div>)
+    }
 
       if(!this.state.searchSuccess){
         repoList=<div></div>
       }else{
-        repoList=<RepositoryList  state={this.state} filter={this.filter} />
+        repoList=<RepositoryList  state={this.state} filter={this.filter} showDetails={this.showDetails} />
       }
+
+      if(this.state.showDetails===false){
+        searchDisp=(<div>
+          <h1>Github viewer</h1>
+        <hr />
+        <SearchForm state={this.state} updateUN={this.updateUN} fetchRepos={this.fetchRepos}  />
+        {repoList}</div>
+        )
+        
+      }else{
+        searchDisp=<div></div>
+      }
+
 
     return (
       <div className="App">
-        <h1>Github viewer</h1>
-        <hr />
-        <SearchForm state={this.state} updateUN={this.updateUN} fetchRepos={this.fetchRepos} />
-        {repoList}
-        <div style={repoListStyle} ><Details /></div>
+        
+        {searchDisp}
+        {repoDetailsDisp}
       </div>
     );
   }

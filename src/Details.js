@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 
-const Details = ()=>{
-  
+class Details extends Component{
+    
+render(){
     return (
       <div className="details">
         <div>
@@ -9,7 +11,7 @@ const Details = ()=>{
             <button className='button info'>Home</button>
             <hr />
         </div>
-        <h1>hello_dojo details</h1>
+        <h1>{this.props.state.username} details</h1>
         <table className='table sticky' role='grid'>
                 <thead>
                     <tr>
@@ -20,20 +22,18 @@ const Details = ()=>{
                 </thead>
                 <tbody>
                     <tr>
-                        <td>32</td>
-                        <td>6</td>
-                        <td>JavaScript</td>
-                    </tr>
-                    <tr>
-                        <td>32</td>
-                        <td>6</td>
-                        <td>JavaScript</td>
+                        <td>{this.props.state.stars}</td>
+                        <td>{this.props.state.forks}</td>
+                        <td>{this.props.state.priLang}</td>
                     </tr>
                 </tbody>
             </table>
       </div>
     );
-  
+    }
+}
+Details.propTypes={
+    state: PropTypes.object.isRequired
 }
 
 export default Details;
